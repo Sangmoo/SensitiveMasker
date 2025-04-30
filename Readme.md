@@ -21,11 +21,11 @@ JAR 이용시 mvn clean package로 target 폴더에
 ## 🧪 예제
 
 ```java
-import com.sangmoo.masker.SensitiveMasker;
+import com.sangmoo SensitiveMasker;
 
 public class Example {
     public static void main(String[] args) {
-        System.out.println(SensitiveMasker.maskName("홍길동"));         // 홍*동
+        System.out.println(SensitiveMasker.maskName("전상문"));         // 전*문
         System.out.println(SensitiveMasker.maskSsn("900101-1234567")); // 900101-1******
         System.out.println(SensitiveMasker.maskPhone("010-1234-5678")); // 010-****-5678
         System.out.println(SensitiveMasker.maskEmail("abc@domain.com")); // a**@domain.com
@@ -35,9 +35,9 @@ public class Example {
 
 ## 복호화 예시
 ```java
-String masked = SensitiveMasker.maskName("홍길동");
-String original = "홍길동";
-String unmasked = SensitiveMasker.unmaskName(masked, original); // 홍길동
+String masked = SensitiveMasker.maskName("전상문");
+String original = "전상문";
+String unmasked = SensitiveMasker.unmaskName(masked, original); // 전상문
 ```
 
 ## 설치 방법
