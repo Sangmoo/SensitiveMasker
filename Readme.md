@@ -1,68 +1,63 @@
-# Loose JSON Parser
+# SensitiveMasker (JDK 1.8 호환)
 
-Java 기반으로 느슨한 JSON 입력을 자동 전처리하여 안전하게 `JsonNode`로 변환해주는 라이브러리입니다.
+Java 1.8 이상 환경에서 사용할 수 있는 **개인정보 마스킹 및 복호화 유틸리티**입니다.  
+사용자 이름, 주민등록번호, 전화번호, 이메일 등의 민감 정보를 마스킹하고 필요 시 복원할 수 있도록 도와줍니다.
+
+JAR 이용시 mvn clean package로 target 폴더에
+[sensitive-masker-1.0.0.jar](target/sensitive-masker-1.0.0.jar) 생성 후 사용
+---
+
+## 기능 요약
+
+| 항목       | 마스킹 예시                          | 복호화 지원 |
+|------------|---------------------------------------|--------------|
+| 이름       | `홍길동` → `홍*동`                   | ✅ 지원       |
+| 주민등록번호 | `900101-1234567` → `900101-1******` | ✅ 지원       |
+| 전화번호   | `010-1234-5678` → `010-****-5678`     | ✅ 지원       |
+| 이메일     | `abc@domain.com` → `a**@domain.com`  | ✅ 지원       |
 
 ---
 
-## 주요 기능
-- 작은따옴표(`'`) ➔ 큰따옴표(`"`) 자동 변환
-- 마지막 쉼표(,) 자동 제거
-- 주석(`//`, `/* ... */`) 자동 제거
-- 키(Key) 이름 자동 보정 (따옴표 없는 키 → 따옴표 추가)
+## 🧪 예제
 
----
+```java
+import com.sangmoo.masker.SensitiveMasker;
 
-## 설치 방법 (로컬 수동 설치)
-mvn clean install 해서 target/loose-json-parser-1.0.0.jar 파일 생성
-
-
-1. JAR을 로컬 Maven 프로젝트로 Install 하는 방법
-로컬에 jar을 이용한 install 방법
-```
-mvn install:install-file \
-  -Dfile=target/loose-json-parser-1.0.0.jar \
-  -DgroupId=com.sangmoo \
-  -DartifactId=loose-json-parser \
-  -Dversion=1.0.0 \
-  -Dpackaging=jar
-```
-
-2. 다른 프로젝트의 pom.xml에 추가하는 방법
-```
-<dependency>
-    <groupId>com.sangmoo</groupId>
-    <artifactId>loose-json-parser</artifactId>
-    <version>1.0.0</version>
-</dependency>
-
-```
-
-3. 실제 사용법(Java 코드)
-```
-import com.sangmoo.LooseJsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-
-public class Main {
-    public static void main(String[] args) throws Exception {
-        String looseJson = "{id:1, name:'홍길동', }";
-
-        JsonNode parsed = LooseJsonParser.parse(looseJson);
-
-        System.out.println(parsed.toPrettyString());
+public class Example {
+    public static void main(String[] args) {
+        System.out.println(SensitiveMasker.maskName("홍길동"));         // 홍*동
+        System.out.println(SensitiveMasker.maskSsn("900101-1234567")); // 900101-1******
+        System.out.println(SensitiveMasker.maskPhone("010-1234-5678")); // 010-****-5678
+        System.out.println(SensitiveMasker.maskEmail("abc@domain.com")); // a**@domain.com
     }
 }
 ```
 
-4. 출력 결과 
-```
-{
-  "id": 1,
-  "name": "홍길동"
-}
+## 복호화 예시
+```java
+String masked = SensitiveMasker.maskName("홍길동");
+String original = "홍길동";
+String unmasked = SensitiveMasker.unmaskName(masked, original); // 홍길동
 ```
 
----
-
-### 참고
-- JDK 1.8 이상
-- 내부적으로 Jackson 2.7.5 사용
+## 설치 방법
+1. 로컬 JAR 설치
+```
+mvn install:install-file \
+  -Dfile=target/sensitive-masker-1.0.0.jar \
+  -DgroupId=com.sangmoo \
+  -DartifactId=sensitive-masker \
+  -Dversion=1.0.0 \
+  -Dpackaging=jar
+```
+2. Maven 프로젝트에 추가
+```
+<dependency>
+    <groupId>com.sangmoo</groupId>
+    <artifactId>sensitive-masker</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+## 지원 환경
+Java 1.8 이상 
+Maven 프로젝트용 JAR 제공

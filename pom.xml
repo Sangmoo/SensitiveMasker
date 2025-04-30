@@ -1,15 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.indongfn</groupId>
-    <artifactId>loose-json-parser</artifactId>
+    <groupId>com.sangmoo</groupId>
+    <artifactId>sensitive-masker</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-
-    <name>Loose JSON Parser</name>
+    <name>Sensitive Masker</name>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -17,10 +15,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.7.5</version> <!-- 안정 버전 -->
-        </dependency>
+        <!-- 기본 라이브러리만 사용 -->
     </dependencies>
 </project>
