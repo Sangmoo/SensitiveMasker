@@ -52,18 +52,25 @@ public class SensitiveMasker {
     }
 
     // 주소 마스킹: 서울시 강남구 테헤란로 123 4층 → 서울시 강남구 테헤란로 ***
-    public static String maskAddress(String address) {
-        if (address == null) return null;
+    public static String maskAddress(String address, boolean maskFull) {
+        if (address == null || address.trim().isEmpty()) return null;
 
-        String[] tokens = address.split(" ");
-        if (tokens.length <= 3) return address;
+        if (maskFull) { // 1이나 Y면 풀 마스킹
+            // 전체 마스킹: 모든 글자를 '*'로 변환
+            return repeatChar('*', address.length());
+        } else {
+            // 부분 마스킹: 앞의 3단어까지만 유지
+            // okens.length와 i 값 n으로 제어하면 n단어까지는 노출 0으로 변경하면 전체 마스킹
+            String[] tokens = address.split(" ");
+            if (tokens.length <= 3) return address;
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 3; i++) {
-            sb.append(tokens[i]).append(" ");
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 3; i++) {
+                sb.append(tokens[i]).append(" ");
+            }
+            sb.append("***");
+            return sb.toString().trim();
         }
-        sb.append("***");
-        return sb.toString();
     }
 
     public static String unmaskAddress(String masked, String original) {
