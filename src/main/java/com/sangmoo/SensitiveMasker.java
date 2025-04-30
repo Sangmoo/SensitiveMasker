@@ -2,7 +2,7 @@ package com.sangmoo;
 
 public class SensitiveMasker {
 
-    // 문자열 반복 함수 (JDK 8 대응)
+    // 문자열 반복 함수 (JDK 1.8 대응)
     private static String repeatChar(char ch, int count) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < count; i++) {
@@ -48,6 +48,25 @@ public class SensitiveMasker {
     }
 
     public static String unmaskEmail(String masked, String original) {
+        return original;
+    }
+
+    // 주소 마스킹: 서울시 강남구 테헤란로 123 4층 → 서울시 강남구 테헤란로 ***
+    public static String maskAddress(String address) {
+        if (address == null) return null;
+
+        String[] tokens = address.split(" ");
+        if (tokens.length <= 3) return address;
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+            sb.append(tokens[i]).append(" ");
+        }
+        sb.append("***");
+        return sb.toString();
+    }
+
+    public static String unmaskAddress(String masked, String original) {
         return original;
     }
 }

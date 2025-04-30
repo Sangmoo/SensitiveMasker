@@ -29,6 +29,7 @@ public class Example {
         System.out.println(SensitiveMasker.maskSsn("900101-1234567")); // 900101-1******
         System.out.println(SensitiveMasker.maskPhone("010-1234-5678")); // 010-****-5678
         System.out.println(SensitiveMasker.maskEmail("abc@domain.com")); // a**@domain.com
+        System.out.println(SensitiveMasker.maskAddress("서울시 강남구 테헤란로 12345678 4층")); // 서울시 강남구 테헤란로 ***
     }
 }
 ```
