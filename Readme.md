@@ -10,17 +10,22 @@ JAR 이용시 mvn clean package로 target 폴더에
 
 ## 기능 요약
 
-| 항목         | 마스킹 예시                                     | 복호화 지원 |
-|--------------|--------------------------------------------------|--------------|
-| 이름         | `전상문` → `전*문`                              | ✅ 지원       |
-| 주민번호     | `900101-1234567` → `900101-1******`             | ✅ 지원       |
-| 전화번호     | `010-1234-5678` → `010-****-5678`               | ✅ 지원       |
-| 이메일       | `abc@domain.com` → `a**@domain.com`            | ✅ 지원       |
-| 주소         | `서울시 강남구 테헤란로 123 4층` → `서울시 강남구 테헤란로 ***` | ✅ 지원       |
-| 계좌번호     | `110-234-567890` → `***-***-567890`             | ✅ 지원       |
-| 카드번호     | `1234-5678-1234-5678` → `1234-****-****-5678`   | ✅ 지원       |
-| IP 주소      | `192.168.0.1` → `***.***.0.1`                   | ✅ 지원       |
-| 차량번호     | `12가3456` → `**가3456`                          | ✅ 지원       |
+| 항목       | 마스킹 예시                                        | 복호화 지원 |
+| -------- | --------------------------------------------- | ------ |
+| 이름       | `전상문` → `전*문`                                 | ✅ 지원   |
+| 주민등록번호   | `900101-1234567` → `900101-1******`           | ✅ 지원   |
+| 전화번호     | `010-1234-5678` → `010-****-5678`             | ✅ 지원   |
+| 이메일 (부분) | `abc@domain.com` → `a**@domain.com`           | ✅ 지원   |
+| 이메일 (전체) | `abc@domain.com` → `***@***********`          | ✅ 지원   |
+| 주소       | `서울시 강남구 테헤란로 123` → `서울시 강남구 테헤란로 ***`       | ✅ 지원   |
+| 계좌번호     | `110-234-567890` → `***-***-567890`           | ✅ 지원   |
+| 카드번호     | `1234-5678-1234-5678` → `1234-****-****-5678` | ✅ 지원   |
+| IP 주소    | `192.168.0.1` → `***.***.0.1`                 | ✅ 지원   |
+| 차량번호     | `12가3456` → `**가3456`                         | ✅ 지원   |
+| 우편번호     | `04542` → `04***`                             | ✅ 지원   |
+| 사업자등록번호  | `123-45-67890` → `***-**-67890`               | ✅ 지원   |
+| 여권번호     | `M12345678` → `M*******8`                     | ✅ 지원   |
+| 운전면허번호   | `11-123456-78` → `**-******-78`               | ✅ 지원   |
 
 ---
 
@@ -31,15 +36,20 @@ import com.sangmoo.SensitiveMasker;
 
 public class Example {
     public static void main(String[] args) {
-        System.out.println(SensitiveMasker.maskName("전상문"));                // 전*문
-        System.out.println(SensitiveMasker.maskSsn("900101-1234567"));        // 900101-1******
-        System.out.println(SensitiveMasker.maskPhone("010-1234-5678"));       // 010-****-5678
-        System.out.println(SensitiveMasker.maskEmail("abc@domain.com"));      // a**@domain.com
-        System.out.println(SensitiveMasker.maskAddress("서울시 강남구 테헤란로 123 4층")); // 서울시 강남구 테헤란로 ***
-        System.out.println(SensitiveMasker.maskAccount("110-234-567890"));    // ***-***-567890
-        System.out.println(SensitiveMasker.maskCard("1234-5678-1234-5678"));  // 1234-****-****-5678
-        System.out.println(SensitiveMasker.maskIp("192.168.0.1"));            // ***.***.0.1
-        System.out.println(SensitiveMasker.maskCarNumber("12가3456"));        // **가3456
+        System.out.println(SensitiveMasker.maskName("전상문"));
+        System.out.println(SensitiveMasker.maskSsn("900101-1234567"));
+        System.out.println(SensitiveMasker.maskPhone("010-1234-5678"));
+        System.out.println(SensitiveMasker.maskEmail("abc@domain.com"));
+        System.out.println(SensitiveMasker.maskEmailFully("abc@domain.com"));
+        System.out.println(SensitiveMasker.maskAddress("서울시 강남구 테헤란로 123", false));
+        System.out.println(SensitiveMasker.maskAccount("110-234-567890"));
+        System.out.println(SensitiveMasker.maskCard("1234-5678-1234-5678"));
+        System.out.println(SensitiveMasker.maskIp("192.168.0.1"));
+        System.out.println(SensitiveMasker.maskCarNumber("12가3456"));
+        System.out.println(SensitiveMasker.maskPostalCode("04542"));
+        System.out.println(SensitiveMasker.maskBizNo("123-45-67890"));
+        System.out.println(SensitiveMasker.maskPassport("M12345678"));
+        System.out.println(SensitiveMasker.maskDriverLicense("11-123456-78"));
     }
 }
 ```
